@@ -1,0 +1,2 @@
+# qurinom-solutions
+ TaskManagerApplication
