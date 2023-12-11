@@ -9,7 +9,7 @@ export default function Dashboard() {
     const [data, setData] = useState(null);
     const [file, setFile] = useState(null);
     const [responsemessage, setResponseMessage] = useState('');
-    let userdata = JSON.parse(localStorage.getItem('userdata'));
+    let userdata = JSON.parse(localStorage.getItem('userdata'))??[];
     console.log(userdata, typeof (userdata))
     const handleFileSelect = (event) => {
         setFile(event.target.files[0].name);

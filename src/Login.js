@@ -12,8 +12,8 @@ export default function Login() {
         if(!userData){
             userData=[]
         }
-        const input = document.getElementById('form-input')
-        const password = document.getElementById('form-pass')
+        const input = document.getElementById('form-input').trim()
+        const password = document.getElementById('form-pass').trim()
         for (let ele of userData) {
             if (ele.name == input.value && ele.password == password.value) {
                 mode=1
@@ -48,6 +48,7 @@ export default function Login() {
                 show={modalShow} value={mode}
                 onHide={() => {
                     if(mode==1){
+                        // window.location.href = "/"
                         window.location.href = "/dashboard"
                     }
                     setModalShow(false)
