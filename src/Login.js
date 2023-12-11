@@ -3,24 +3,43 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-let mode=0;
+let mode = 0;
 export default function Login() {
     const [modalShow, setModalShow] = useState(false);
+    const [responseMessage, setResponseMessage] = useState("");
     const userCredentials = () => {
         let userData = localStorage.getItem('userData')
         userData = eval(userData)
-        if(!userData){
-            userData=[]
+        if (!userData) {
+            userData = []
         }
-        const input = document.getElementById('form-input').trim()
-        const password = document.getElementById('form-pass').trim()
-        for (let ele of userData) {
-            if (ele.name == input.value && ele.password == password.value) {
-                mode=1
+        const input = document.getElementById('form-input').value.trim()
+        const password = document.getElementById('form-pass').value.trim()
+        if (input == "" && password == "") {
+            setResponseMessage("Enter Username and Password!")
+            setModalShow(true)
+        }
+        else if (input == "") {
+            setResponseMessage("Enter your Username!")
+            setModalShow(true)
+        }
+        else if (password == "") {
+            setResponseMessage("Enter your Password!")
+            setModalShow(true)
+        }
+        else {
+            for (let ele of userData) {
+                if (ele.name == input && ele.password == password) {
+                    mode = 1
+                    setResponseMessage("Login Successful!")
+                    setModalShow(true)
+                }
+            }
+            if (mode == 0) {
+                setResponseMessage("Invalid Username or Password")
                 setModalShow(true)
             }
         }
-        setModalShow(true)
     }
 
     return (
@@ -45,14 +64,13 @@ export default function Login() {
                 </div>
             </div>
             <MyVerticallyCenteredModal
-                show={modalShow} value={mode}
+                show={modalShow} value={responseMessage} mode={mode}
                 onHide={() => {
-                    if(mode==1){
-                        // window.location.href = "/"
+                    if (mode == 1) {
                         window.location.href = "/dashboard"
                     }
                     setModalShow(false)
-                 }
+                }
                 }
             />
         </div>
@@ -60,7 +78,6 @@ export default function Login() {
 }
 
 function MyVerticallyCenteredModal(props) {
-    console.log(props.value)
     return (
         <Modal
             {...props}
@@ -70,12 +87,12 @@ function MyVerticallyCenteredModal(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    <span id='title-msg'>{props.value ? "Message" : "Error"}</span>&nbsp;
-                    {props.value ? <span id='message'>&#x2713;</span> : <span id='warning'>&#x26A0;</span>}
+                    <span id='title-msg'>{props.mode ? "Message" : "Error"}</span>&nbsp;
+                    {props.mode ? <span id='message'>&#x2713;</span> : <span id='warning'>&#x26A0;</span>}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>{props.value==1?"Login Successful!":"Invalid Username or Password"}</h4>
+                <h4>{props.value}</h4>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>

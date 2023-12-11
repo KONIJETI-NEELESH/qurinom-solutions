@@ -9,6 +9,13 @@
   font-size: large;
 }
 
+.list-div {
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
 #dashboard {
   display: flex;
   justify-content: center;
@@ -17,13 +24,14 @@
 }
 
 .li {
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   list-style: none;
   display: flex;
   justify-content: space-between;
   margin: 1rem;
   background-color: none;
   font-weight: bold;
+  /* width: 100vw; */
 }
 
 #icon {
@@ -211,19 +219,17 @@
 
 #menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: rgb(40, 75, 89);
   color: white;
   position: absolute;
   height: 2.5rem;
-  width: 100%;
+  width: 100vw;
   top: 0;
 }
 
 #inside {
-  /* width: 50%; */
   display: flex;
-  /* margin-top: 8px; */
   justify-content: space-around;
 }
 
@@ -231,7 +237,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
-  margin-left: 10%;
+  /* margin-left: 10%; */
   margin-top: 0.5rem;
 }
 
@@ -243,7 +249,7 @@
   border: 1px solid white;
   padding: 0.2rem;
   margin: 0.5rem;
-  margin-right: 2rem;
+  /* margin-right: 2rem; */
   border-radius: 0.5rem;
 }
 
@@ -251,4 +257,70 @@
   cursor: pointer;
   transform: scale(0.8);
   transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+  #drop-zone{
+    width: 20rem;
+    height: 10rem;
+  }
+  .delete {
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  .delete:hover {
+    background-color: rgb(245, 0, 0);
+    transition: 0.2s all ease-in-out;
+  }
+  
+  .delete:active {
+    transform: scale(0.8);
+    transition: 0.2s all ease-in-out;
+  }
+  
+  .edit {
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  .edit:hover {
+    background-color: rgb(0, 0, 225);
+    transition: 0.2s all ease-in-out;
+  }
+  
+  .edit:active {
+    transform: scale(0.8);
+    transition: 0.2s all ease-in-out;
+  }
+
+  .list-div {
+    display: flex;
+    height: 2.5rem;
+  }
+
+  .li {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  #drop-zone {
+    width: 15rem;
+    height: 10rem;
+  }
+  body {
+    font-size: 0.8rem;
+  }
+  #menu {
+    /* width: 22rem; */
+  }
 }

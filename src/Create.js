@@ -11,17 +11,22 @@ export default function Login() {
         let userData = JSON.parse(localStorage.getItem('userData')) ?? []
         const input = document.getElementById('form-input').value.trim()
         const password = document.getElementById('form-pass').value.trim()
-        if (input == "" || password == "") {
-            setResponseMessage("Enter Valid Username and Password!")
+        if (input == "" && password == "") {
+            setResponseMessage("Enter Username and Password!")
+            setModalShow(true)
+        }
+        else if(input == ""){
+            setResponseMessage("Enter your Username!")
+            setModalShow(true)
+        }
+        else if(password == ""){
+            setResponseMessage("Enter your Password!")
             setModalShow(true)
         }
         else {
             const obj = {
                 name: input,
                 password: password
-            }
-            if (!userData) {
-                userData = []
             }
             let s = 0
             for (let ele of userData) {

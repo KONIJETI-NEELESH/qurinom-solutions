@@ -80,7 +80,7 @@ export default function Dashboard() {
                 <ul id="lists">
                     {Object.values(userdata).map((value, index) => {
                         return (
-                            <li className='li' key={index}>{value}<div>
+                            <li className='li' key={index}>{value}<div className='list-div'>
                                 <button id={index} onClick={deleteTodo} className="delete">DELETE</button>
                                 <button id={index} onClick={handleClick} className="edit">EDIT</button></div></li>
                         )
