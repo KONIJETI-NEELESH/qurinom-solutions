@@ -4,7 +4,7 @@ export default function Home() {
         window.location.href = '/login'
     }
     return (
-        <div class="intro">
+        <div className="intro">
             <h1>TaskFlow Manager</h1>
             <p>A Collaborative Task Management Application</p>
             <button className="button-49" onClick={clickHandle} role="button">Continue</button>

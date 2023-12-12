@@ -54,7 +54,7 @@ export default function Login() {
                     <label>Password</label>
                     <input type='password' id='form-pass' placeholder='Enter your Password' />
                 </div>
-                <div id="button" class="row">
+                <div id="button" className="row">
                     <button onClick={userCredentials}>Login</button>
                 </div>
                 <div id="alternativeLogin">
@@ -67,6 +67,7 @@ export default function Login() {
                 show={modalShow} value={responseMessage} mode={mode}
                 onHide={() => {
                     if (mode == 1) {
+                        localStorage.setItem("login",JSON.stringify(true))
                         window.location.href = "/dashboard"
                     }
                     setModalShow(false)

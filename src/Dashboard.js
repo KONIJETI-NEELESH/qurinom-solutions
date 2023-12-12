@@ -2,15 +2,20 @@ import './style.css';
 import { useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Login from './Login';
 let mode = 0
 export default function Dashboard() {
+    let login = localStorage.getItem('login');
+    if(login=="undefined"){
+        login=0
+    }
     const inputRef = useRef(null)
     const [modalShow, setModalShow] = useState(false);
+    const [flag,setFlag] = useState(0);
     const [data, setData] = useState(null);
     const [file, setFile] = useState(null);
     const [responsemessage, setResponseMessage] = useState('');
-    let userdata = JSON.parse(localStorage.getItem('userdata'))??[];
-    console.log(userdata, typeof (userdata))
+    let userdata = JSON.parse(localStorage.getItem('userdata')) ?? [];
     const handleFileSelect = (event) => {
         setFile(event.target.files[0].name);
     };
@@ -31,7 +36,7 @@ export default function Dashboard() {
                 mode = 1
                 userdata.push(file)
             }
-            mode=1
+            mode = 1
             localStorage.setItem('userdata', JSON.stringify(userdata))
             setResponseMessage("File Uploaded Successfully!")
             setModalShow(true)
@@ -51,42 +56,55 @@ export default function Dashboard() {
     }
 
     function clickHandle() {
-        window.location.href = '/'
+        setResponseMessage("Log Out Successful!")
+        setFlag(1)
+        mode=1
+        setModalShow(true)
+        // window.location.href = '/'
     }
 
     return (
-        <div id='dashboard'>
-            <div id='menu'>
-                <div id='inside'>
-                    <h4 id='inside-h4'>WELCOME&nbsp;ADMIN</h4>
-                </div>
-                <div id='inside-right'>
-                    <p id='logout' onClick={clickHandle}>LOG&nbsp;OUT</p>
-                </div>
-            </div>
-            <div id='card'>
-                <div id="drop-zone" type="file" onChange={handleFileSelect} style={{ border: "2px dashed #ccc", padding: "0" }}>
-                    <div id='icon'></div>
-                    <input id='choose-file' ref={inputRef} type="file" onChange={handleFileSelect} />
-                    or Drop file here
-                </div>
-                <br /><button id="upload-btn" className='upload' onClick={handleUpload}>Upload</button>
-                <MyVerticallyCenteredModal show={modalShow} name={responsemessage} value={mode} onHide={() => {
-                    setModalShow(false)
-                    window.location.reload()
-                }} />
-            </div>
-            <div className="container">
-                <ul id="lists">
-                    {Object.values(userdata).map((value, index) => {
-                        return (
-                            <li className='li' key={index}>{value}<div className='list-div'>
-                                <button id={index} onClick={deleteTodo} className="delete">DELETE</button>
-                                <button id={index} onClick={handleClick} className="edit">EDIT</button></div></li>
-                        )
-                    })}
-                </ul>
-            </div>
+        <div>
+            {login ?
+                <div id='dashboard'>
+                    < div id='menu' >
+                        <div id='inside'>
+                            <h4 id='inside-h4'>WELCOME&nbsp;ADMIN</h4>
+                        </div>
+                        <div id='inside-right'>
+                            <p id='logout' onClick={clickHandle}>LOG&nbsp;OUT</p>
+                        </div>
+                    </div >
+                    <div id='card'>
+                        <div id="drop-zone" type="file" onChange={handleFileSelect} style={{ border: "2px dashed #ccc", padding: "0" }}>
+                            <div id='icon'></div>
+                            <input id='choose-file' ref={inputRef} type="file" onChange={handleFileSelect} />
+                            or Drop file here
+                        </div>
+                        <br /><button id="upload-btn" className='upload' onClick={handleUpload}>Upload</button>
+                        <MyVerticallyCenteredModal show={modalShow} name={responsemessage} value={mode} onHide={() => {
+                            if(flag==1){
+                                localStorage.setItem("login",JSON.stringify())
+                                window.location.href="/"
+                            }
+                            else {
+                                window.location.reload()
+                            }
+                            setModalShow(false)
+                        }} />
+                    </div>
+                    <div className="container">
+                        <ul id="lists">
+                            {Object.values(userdata).map((value, index) => {
+                                return (
+                                    <li className='li' key={index}>{value}<div className='list-div'>
+                                        <button id={index} onClick={deleteTodo} className="delete">DELETE</button>
+                                        <button id={index} onClick={handleClick} className="edit">EDIT</button></div></li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </div > : <Login />}
         </div>
     )
 }
