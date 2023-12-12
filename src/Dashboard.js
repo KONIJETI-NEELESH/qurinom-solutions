@@ -60,7 +60,6 @@ export default function Dashboard() {
         setFlag(1)
         mode=1
         setModalShow(true)
-        // window.location.href = '/'
     }
 
     return (
